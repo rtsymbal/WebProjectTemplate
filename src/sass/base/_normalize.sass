@@ -1,4 +1,6 @@
 @import "base/vars"
+@import "_mixins/em"
+
 *
 	-webkit-box-sizing: border-box
 	-moz-box-sizing: border-box
@@ -35,7 +37,7 @@ html, body
 	height: 100%
 
 body
-	font-size: 16px
+	font-size: $base-font-size
 	min-width: 320px
 	position: relative
 	line-height: 1.65
@@ -47,3 +49,9 @@ body
 	display: block
 	max-width: 100%
 	height: auto
+
+.hidden
+	display: none
+
+h1, h2, h3, h4, h5, h6
+	text-transform: uppercase
