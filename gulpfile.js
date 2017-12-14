@@ -13,7 +13,7 @@ var gulp           = require('gulp'),
 		ftp            = require('vinyl-ftp'),
 		notify         = require('gulp-notify'),
 		rsync          = require('gulp-rsync'),
-		jade 					 = require('gulp-jade');
+		pug 					 = require('gulp-pug');
 
 // user scripts
 
@@ -48,9 +48,9 @@ gulp.task('browser-sync', function() {
 	});
 });
 
-gulp.task('jade', function() {
-  return gulp.src('src/**/*.jade')
-    .pipe(jade({pretty: true}))
+gulp.task('pug', function buildHTML() {
+  return gulp.src('src/**/*.pug')
+    .pipe(pug({pretty: true}))
     .pipe(gulp.dest('src/'))
     .pipe(browserSync.reload({stream: true}));
 });
@@ -65,8 +65,8 @@ gulp.task('sass', function() {
 	.pipe(browserSync.reload({stream: true}));
 });
 
-gulp.task('watch', ['jade', 'sass', 'js', 'browser-sync'], function() {
-	gulp.watch('src/**/*.jade', ['jade']);
+gulp.task('watch', ['pug', 'sass', 'js', 'browser-sync'], function() {
+	gulp.watch('src/**/*.pug', ['pug']);
 	gulp.watch('src/sass/**/*.sass', ['sass']);
 	gulp.watch(['libs/**/*.js', 'src/js/common.js'], ['js']);
 	gulp.watch('src/*.html', browserSync.reload);
@@ -78,7 +78,7 @@ gulp.task('imagemin', function() {
 	.pipe(gulp.dest('dist/img')); 
 });
 
-gulp.task('build', ['removedist', 'imagemin', 'jade', 'sass', 'js'], function() {
+gulp.task('build', ['removedist', 'imagemin', 'pug', 'sass', 'js'], function() {
 
 	var buildFiles = gulp.src([
 		'src/*.html',
