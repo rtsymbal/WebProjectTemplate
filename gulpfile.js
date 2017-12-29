@@ -13,8 +13,8 @@ var gulp           = require('gulp'),
 		ftp            = require('vinyl-ftp'),
 		notify         = require('gulp-notify'),
 		rsync          = require('gulp-rsync'),
+		uncss 				 = require('gulp-uncss'),
 		pug 					 = require('gulp-pug');
-
 // user scripts
 
 gulp.task('common-js', function() {
@@ -29,6 +29,8 @@ gulp.task('common-js', function() {
 gulp.task('js', ['common-js'], function() {
 	return gulp.src([
 		'src/libs/jquery/dist/jquery.min.js',
+		'src/libs/bootstrap/bootstrap.bundle.min.js',
+		// 'src/libs/materialize/materialize.min.js',
 		'src/js/common.min.js', // Всегда в конце
 		])
 	.pipe(concat('scripts.min.js'))
@@ -50,7 +52,7 @@ gulp.task('browser-sync', function() {
 
 gulp.task('pug', function buildHTML() {
   return gulp.src('src/**/*.pug')
-    .pipe(pug({pretty: true}))
+    .pipe(pug({pretty: true})) //Change to "false" beforo build
     .pipe(gulp.dest('src/'))
     .pipe(browserSync.reload({stream: true}));
 });
@@ -78,16 +80,24 @@ gulp.task('imagemin', function() {
 	.pipe(gulp.dest('dist/img')); 
 });
 
-gulp.task('build', ['removedist', 'imagemin', 'pug', 'sass', 'js'], function() {
+gulp.task('uncss', function () {
+    return gulp.src('src/css/style.min.css')
+        .pipe(uncss({
+            html: ['src/index.html']
+        }))
+        .pipe(gulp.dest('dist/css'));
+});
+
+gulp.task('build', ['removedist', 'imagemin', 'pug', 'sass', 'js', 'uncss'], function() {
 
 	var buildFiles = gulp.src([
 		'src/*.html',
 		'src/.htaccess',
 		]).pipe(gulp.dest('dist'));
 
-	var buildCss = gulp.src([
-		'src/css/main.min.css',
-		]).pipe(gulp.dest('dist/css'));
+	// var buildCss = gulp.src([          // testing UNCSS
+	// 	'src/css/style.min.css',
+	// 	]).pipe(gulp.dest('dist/css'));
 
 	var buildJs = gulp.src([
 		'src/js/scripts.min.js',
