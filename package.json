@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Roman Tsymbal",
+  "author": "Roman Tsymbal <roman.tsymbal@gmail.com> (http://rtsymbal.io)",
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.22.0",
@@ -14,7 +14,7 @@
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-cache": "^1.0.1",
-    "gulp-clean-css": "^3.9.0",
+    "gulp-clean-css": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-imagemin": "^4.0.0",
     "gulp-notify": "^3.0.0",
